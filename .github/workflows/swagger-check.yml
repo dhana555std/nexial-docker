@@ -1,0 +1,50 @@
+name: Check for Swagger.json
+
+on:
+  push:
+    paths-ignore:
+      - '.github/workflows/**'
+    branches:
+      - main  # Change this to your main branch name
+
+jobs:
+  check_for_swagger:
+    runs-on: ubuntu-latest
+
+    steps:
+    - name: Checkout Repository
+      uses: actions/checkout@v2
+
+    - name: List Changed Files
+      run: |
+        # Get the list of changed files
+        changed_files=$(git diff --name-only ${{ github.sha }}^ ${{ github.sha }})
+        
+        # Print the list of changed files
+        echo "Changed Files:"
+        echo "$changed_files"
+
+    - name: Check for Swagger.json
+      run: |
+        # Check if swagger.json is in the list of changed files
+        if echo "$changed_files" | grep -q 'swagger.json'; then
+          echo "Swagger.json file is changed."
+
+          # Check if swagger.json is not inside .github/workflows
+          if echo "$changed_files" | grep -q '.github/workflows/swagger.json'; then
+            echo "Swagger.json is inside .github/workflows directory. Ignoring."
+          else
+            # Print present working directory
+            echo "Present Working Directory:"
+            pwd
+
+            # Print contents of swagger.json
+            echo "Contents of swagger.json:"
+            cat swagger.json
+          
+            # Additional actions you want to perform if swagger.json is changed
+          fi
+        else
+          echo "Swagger.json file is not changed."
+          # Additional actions you want to perform if swagger.json is not changed
+        fi
