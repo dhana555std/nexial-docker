@@ -29,3 +29,13 @@ jobs:
           echo "${{ steps.abc.outputs.modified }}"
           echo "Added+Modified:"
           echo "${{ steps.abc.outputs.added_modified }}"
+
+          IFS=' ' read -ra paths <<< "${{ steps.abc.outputs.added_modified }}"
+
+          for path in "${paths[@]}"; do
+            if [[ "$path" == *swagger.json* ]]; then
+              echo "Swagger.json found in path: $path"
+            else
+              echo "Swagger.json not found in path: $path"
+            fi
+          done
