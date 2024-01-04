@@ -19,7 +19,7 @@ jobs:
       run: |      
         # Print the list of changed files
         echo "Changed Files:"
-        commit_ids=$(git log --pretty=format:"%H" -n 2)
+        commit_ids=$(git log --pretty=format:"%H" -n 3)
         read v1 v2 <<< $(echo ${commit_ids})
 
         # Print or use the variables as needed
