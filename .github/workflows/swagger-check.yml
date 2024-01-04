@@ -19,7 +19,7 @@ jobs:
       run: |      
         # Print the list of changed files
         echo "Changed Files:"
-        commit_ids=$(git log --pretty=format:"%H" -n 2)
+        commit_ids=($(git log --pretty=format:"%H" -n 2))
         read -r commit_id1 commit_id2 <<< "$commit_ids"
 
         # Store each commit ID in a separate variable
