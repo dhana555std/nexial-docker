@@ -5,7 +5,7 @@ on:
     paths-ignore:
       - '.github/workflows/**'
     branches:
-      - main
+      - main  # Change this to your main branch name
 
 jobs:
   check_for_swagger:
@@ -17,21 +17,21 @@ jobs:
 
     - name: List Changed Files
       run: |
-        # Get the list of changed files
-        changed_files=$(git diff --name-only HEAD^ HEAD)
+        # Get the list of changed files from GitHub context
+        changed_files="${{ github.event.before }}...${{ github.sha }}"
         
         # Print the list of changed files
         echo "Changed Files:"
-        echo "$changed_files"
+        git diff --name-only $changed_files
 
     - name: Check for Swagger.json
       run: |
         # Check if swagger.json is in the list of changed files
-        if echo "$changed_files" | grep -q 'swagger.json'; then
+        if git diff --name-only $changed_files | grep -q 'swagger.json'; then
           echo "Swagger.json file is changed."
 
           # Check if swagger.json is not inside .github/workflows
-          if echo "$changed_files" | grep -q '.github/workflows/swagger.json'; then
+          if git diff --name-only $changed_files | grep -q '.github/workflows/swagger.json'; then
             echo "Swagger.json is inside .github/workflows directory. Ignoring."
           else
             # Print present working directory
