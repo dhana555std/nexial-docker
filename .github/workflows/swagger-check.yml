@@ -19,7 +19,16 @@ jobs:
       run: |      
         # Print the list of changed files
         echo "Changed Files:"
-        git diff --name-only ${{ github.event.before }}..${{ github.sha }}
+        commit_ids=$(git log --pretty=format:"%H" -n 2)
+
+        # Store each commit ID in a separate variable
+        commit_id1=$(echo "$commit_ids" | sed -n '1p')
+        commit_id2=$(echo "$commit_ids" | sed -n '2p')
+
+        # Print or use the variables as needed
+        echo "Last commit ID: $commit_id1"
+        echo "Second to last commit ID: $commit_id2"
+        git diff --name-only $commit_id1..$commit_id2
 
     - name: Check for Swagger.json
       run: |
