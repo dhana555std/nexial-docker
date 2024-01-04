@@ -19,7 +19,7 @@ jobs:
       run: |      
         # Print the list of changed files
         echo "Changed Files:"
-        commit_ids=($(git rev-list -n 2 --abbrev-commit HEAD))
+        commit_ids=($(git log --pretty=format:"%H" -n 2))
         read -r commit_id1 commit_id2 <<< "$commit_ids"
 
         # Store each commit ID in a separate variable
@@ -27,6 +27,7 @@ jobs:
         commit_id2=${commit_ids[1]}
 
         # Print or use the variables as needed
+        echo "commit ids $commit_ids"
         echo "Last commit ID: $commit_id1"
         echo "Second to last commit ID: $commit_id2"
         git diff --name-only $commit_id1..$commit_id2
