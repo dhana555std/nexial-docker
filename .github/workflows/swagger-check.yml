@@ -2,8 +2,8 @@ name: Check for Swagger.json
 
 on:
   push:
-    paths-ignore:
-      - '.github/workflows/**'
+    # paths-ignore:
+    #   - '.github/workflows/**'
     branches:
       - main  # Change this to your main branch name
 
@@ -18,7 +18,7 @@ jobs:
     - name: List Changed Files
       run: |
         # Get the list of changed files from GitHub context
-        changed_files="${{ github.event.before }}...${{ github.sha }}"
+        changed_files="${{ github.event.before }}..${{ github.sha }}"
         
         # Print the list of changed files
         echo "Changed Files:"
