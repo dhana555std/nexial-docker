@@ -1,8 +1,8 @@
 {
   "openapi": "3.0.1",
   "info": {
-    "title": "Sample API Swagger",
-    "description": "A sample API with Swagger",
+    "title": "God is great!",
+    "description": "A Sample API with Swagger",
     "version": "1.0.0"
   },
   "paths": {
