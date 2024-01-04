@@ -46,7 +46,7 @@
           }
         },
         "responses": {
-          "201": {
+          "221": {
             "description": "User created successfully",
             "content": {
               "application/json": {
