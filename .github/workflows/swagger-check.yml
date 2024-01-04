@@ -2,8 +2,6 @@ name: Check for Swagger.json
 
 on:
   push:
-    # paths-ignore:
-    #   - '.github/workflows/**'
     branches:
       - main  # Change this to your main branch name
 
@@ -16,17 +14,13 @@ jobs:
       uses: actions/checkout@v2
 
     - name: List Changed Files
-      run: |      
+      run: |
+        # Get the list of changed files from GitHub context
+        changed_files="${{ github.event.before }}...${{ github.sha }}"
+        
         # Print the list of changed files
         echo "Changed Files:"
-        commit_ids=$(git log --pretty=format:"%H" -n 3)
-        read v1 v2 <<< $(echo ${commit_ids})
-
-        # Print or use the variables as needed
-        echo "commit ids $commit_ids"
-        echo "Last commit ID: $v1"
-        echo "Second to last commit ID: $v2"
-        git diff --name-only $v1..$v2
+        git diff --name-only $changed_files
 
     - name: Check for Swagger.json
       run: |
@@ -35,9 +29,7 @@ jobs:
           echo "Swagger.json file is changed."
 
           # Check if swagger.json is not inside .github/workflows
-          if git diff --name-only $changed_files | grep -q '.github/workflows/swagger.json'; then
-            echo "Swagger.json is inside .github/workflows directory. Ignoring."
-          else
+          if ! git diff --name-only $changed_files | grep -q '.github/workflows/swagger.json'; then
             # Print present working directory
             echo "Present Working Directory:"
             pwd
@@ -47,6 +39,8 @@ jobs:
             cat swagger.json
           
             # Additional actions you want to perform if swagger.json is changed
+          else
+            echo "Swagger.json is inside .github/workflows directory. Ignoring."
           fi
         else
           echo "Swagger.json file is not changed."
