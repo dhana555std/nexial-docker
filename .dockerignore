@@ -1,1 +1,5 @@
-Dockerfile
+Dockerfile*
+.dockerignore
+.git
+tests/output
+
