@@ -5,7 +5,7 @@ on:
     paths-ignore:
       - '.github/workflows/**'
     branches:
-      - main  # Change this to your main branch name
+      - main
 
 jobs:
   check_for_swagger:
@@ -18,7 +18,7 @@ jobs:
     - name: List Changed Files
       run: |
         # Get the list of changed files
-        changed_files=$(git diff --name-only ${{ github.sha }}^ ${{ github.sha }})
+        changed_files=$(git diff --name-only HEAD^ HEAD)
         
         # Print the list of changed files
         echo "Changed Files:"
