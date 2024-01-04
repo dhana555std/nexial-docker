@@ -20,13 +20,13 @@ jobs:
         # Print the list of changed files
         echo "Changed Files:"
         commit_ids=$(git log --pretty=format:"%H" -n 2)
-        read commit_id1 commit_id2 <<< $(echo ${commit_ids})
+        read v1 v2 <<< $(echo ${commit_ids})
 
         # Print or use the variables as needed
         echo "commit ids $commit_ids"
-        echo "Last commit ID: $commit_id1"
-        echo "Second to last commit ID: $commit_id2"
-        git diff --name-only $commit_id1..$commit_id2
+        echo "Last commit ID: $v1"
+        echo "Second to last commit ID: $v2"
+        git diff --name-only $v1..$v2
 
     - name: Check for Swagger.json
       run: |
