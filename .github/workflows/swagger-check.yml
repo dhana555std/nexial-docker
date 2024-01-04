@@ -22,8 +22,8 @@ jobs:
         commit_ids=($(git log --pretty=format:"%H" -n 2))
 
         # Store each commit ID in a separate variable
-        commit_id1=${commit_ids[1]}
-        commit_id2=${commit_ids[2]}
+        commit_id1=${commit_ids[0]}
+        commit_id2=${commit_ids[1]}
 
         # Print or use the variables as needed
         echo "Last commit ID: $commit_id1"
