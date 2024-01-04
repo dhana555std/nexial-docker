@@ -40,7 +40,7 @@
           "content": {
             "application/json": {
               "example": {
-                "name": "New User"
+                "name": "Guru"
               }
             }
           }
