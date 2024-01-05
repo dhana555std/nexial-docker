@@ -19,14 +19,6 @@ jobs:
         run: |
           echo "All:"
           echo "${{ steps.abc.outputs.all }}"
-          echo "Added:"
-          echo "${{ steps.abc.outputs.added }}"
-          echo "Removed:"
-          echo "${{ steps.abc.outputs.removed }}"
-          echo "Renamed:"
-          echo "${{ steps.abc.outputs.renamed }}"
-          echo "Modified:"
-          echo "${{ steps.abc.outputs.modified }}"
           echo "Added+Modified:"
           echo "${{ steps.abc.outputs.added_modified }}"
 
@@ -35,6 +27,8 @@ jobs:
           for path in "${paths[@]}"; do
             if [[ "$path" == *swagger.json* ]]; then
               echo "Swagger.json found in path: $path"
+              # add the code to temp.
+              # clone the code and make sure it is inside /home/runner/projects
             else
               echo "Swagger.json not found in path: $path"
             fi
