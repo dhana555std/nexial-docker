@@ -23,7 +23,7 @@ jobs:
         run: docker build -t roompot/mdminfraci .
         
       - name: Run tests
-        run: docker run -v /tmp:/home/projects/tests/output --name nexial roompot/mdminfraci
+        run: docker run -v "$(pwd):/home/projects/tests/output" --name nexial roompot/mdminfraci
 
       - name: Get results of Nexial
         run: |
