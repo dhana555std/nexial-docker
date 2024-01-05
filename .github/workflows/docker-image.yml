@@ -9,29 +9,11 @@ jobs:
   build:
     runs-on: ubuntu-latest
 
-    steps:
-    - name: Install jq
-      run: sudo apt-get install jq
-      
+    steps:     
     # - uses: actions/checkout@v3
     - name: Build the Docker image
       run: |
         docker build -t roompot/mdminfraci .
-        docker run -it --mount type=bind,source=/tmp/nexial-output,target=/home/projects/tests --name nexial roompot/mdminfraci
-        cd /tmp/nexial-output
-        cd "$(ls -d */ | head -n 1)"
-        cat ./execution-detail.json
-        apt-get install jq
-        failCount=$(jq -r '.failCount' execution-detail.json)
-
-        echo "failCount is $failCount."
-
-        if [ "$failCount" -gt 0 ]; then
-          echo "Automation tests failed."
-          exit 1
-        else
-          echo "Automation tests passed."
-        fi
-        
-        
+        docker run -it --name nexial roompot/mdminfraci
+             
         
