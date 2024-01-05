@@ -1,7 +1,4 @@
-"Steps to run on Windows" 
-
-
-
+Steps to run on Windows
 
 ```
 1. docker build -t nexial .
