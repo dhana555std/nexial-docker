@@ -23,9 +23,21 @@ jobs:
         run: docker build -t roompot/mdminfraci .
         
       - name: Run tests
-        run: docker run -v "$(pwd):/home/projects/tests/output" --name nexial roompot/mdminfraci
+        run: docker run -v "$(pwd)/output:/home/projects/tests/output" --name nexial roompot/mdminfraci
 
       - name: Get results of Nexial
-        run: ls -lrta 
-             
-        
+        run: |
+          ls -lrta
+          cd output
+          cd "$(ls -d */ | head -n 1)"
+          
+          cat ./execution-detail.json
+          failCount=$(jq -r '.failCount' execution-detail.json)
+          echo "failCount is $failCount."
+
+          if [ "$failCount" -gt 0 ]; then
+            echo "Automation tests failed."
+            exit 1
+          else
+            echo "Automation tests passed."
+          fi
