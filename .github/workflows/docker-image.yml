@@ -26,7 +26,6 @@ jobs:
         run: docker run -v "$(pwd):/home/projects/tests/output" --name nexial roompot/mdminfraci
 
       - name: Get results of Nexial
-        run: |
-          ls -lrta /tmp/nexial-output
+        run: ls -lrta 
              
         
