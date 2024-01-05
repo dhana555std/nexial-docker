@@ -23,6 +23,6 @@ jobs:
         run: docker build -t roompot/mdminfraci .
         
       - name: Run tests
-        run: docker run -it --name nexial roompot/mdminfraci
+        run: docker run --mount type=bind,source=/tmp/nexial-output,target=/home/projects/tests --name nexial roompot/mdminfraci
              
         
