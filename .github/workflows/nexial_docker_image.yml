@@ -14,7 +14,25 @@ jobs:
     - uses: actions/checkout@v3
     - name: Build the Docker image
       run: |
-        docker build -t nexial . 
-    - name: create container for nexial
+        docker build -t nexial .
+
+    - name: Run nexial scripts
       run: |
-         docker run -t --name nex nexial
+       docker run -v "$(pwd)/output:/home/projects/tests/output" --name nex nexial
+
+    - name: Get results of Nexial
+      run: |
+              ls -lrta
+              cd output
+              cd "$(ls -d */ | head -n 1)"
+              
+              cat ./execution-detail.json
+              failCount=$(jq -r '.failCount' execution-detail.json)
+              echo "failCount is $failCount."
+              
+              if [ "$failCount" -gt 0 ]; then
+                echo "Automation tests failed."
+                exit 1
+              else
+                echo "Automation tests passed."
+              fi
