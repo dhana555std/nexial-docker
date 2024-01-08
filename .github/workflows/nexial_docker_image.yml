@@ -47,9 +47,9 @@ jobs:
     - name: Upload to S3
       run: |
         pwd
-        cd ${GITHUB_WORKSPACE}/home/projects/tests/
-        ls -l ${GITHUB_WORKSPACE}/home/projects/tests/
-        aws s3 cp --recursive ${GITHUB_WORKSPACE}/home/projects/tests/output/ s3://testbucket-for-triggering/
+        cd ./output
+        ls -l ./output
+        aws s3 cp --recursive ./output s3://testbucket-for-triggering/
       env:
         AWS_ACCESS_KEY_ID: ${{ secrets.AWS_ACCESS_KEY_ID }}
         AWS_SECRET_ACCESS_KEY: ${{ secrets.AWS_SECRET_ACCESS_KEY }}
