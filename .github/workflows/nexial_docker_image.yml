@@ -1,4 +1,4 @@
-name: Docker Image CI for Nexial
+name: Nexial Automation tests running on Container with Volumes
 
 on:
   push:
