@@ -11,7 +11,7 @@ jobs:
     runs-on: ubuntu-latest
 
     steps:
-    - uses: actions/checkout@v3
+    - uses: actions/checkout@v4
 
     - name: Build the Docker image
       run: |
@@ -22,6 +22,7 @@ jobs:
        docker run -v "$(pwd)/output:/home/projects/tests/output" --name nex nexial
 
     - name: Get results of Nexial
+      if: ${{ ! cancelled() }}
       run: |
               ls -lrta
               cd output
@@ -52,4 +53,4 @@ jobs:
       env:
         AWS_ACCESS_KEY_ID: ${{secrets.ACCESS_KEY_ID}}
         AWS_SECRET_ACCESS_KEY: ${{secrets.AWS_SECRET_ACCESS_KEY}}
-        AWS_DEFAULT_REGION: 'ap-south-1' # default region
+        AWS_DEFAULT_REGION: 'ap-south-1'
