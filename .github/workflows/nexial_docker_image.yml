@@ -50,6 +50,6 @@ jobs:
         ls -l /home/runner/work/nexial-docker/nexial-docker/output
         aws s3 cp --recursive /home/runner/work/nexial-docker/nexial-docker/output s3://testbucket-for-triggering/
       env:
-        AWS_ACCESS_KEY_ID: ${{ secrets.AWS_ACCESS_KEY_ID }}
-        AWS_SECRET_ACCESS_KEY: ${{ secrets.AWS_SECRET_ACCESS_KEY }}
+        AWS_ACCESS_KEY_ID: ${{secrets.AWS_ACCESS_KEY_ID}}
+        AWS_SECRET_ACCESS_KEY: ${{secrets.AWS_SECRET_ACCESS_KEY}}
         AWS_DEFAULT_REGION: 'ap-south-1'
