@@ -40,12 +40,15 @@ jobs:
               fi
 
     - name: install aws-cli
+      id: install-aws
+      if: ${{ ! cancelled() }}
       run: |
         curl "https://awscli.amazonaws.com/awscli-exe-linux-x86_64.zip" -o "awscliv2.zip"
         unzip awscliv2.zip
         sudo ./aws/install --update
 
     - name: Upload to S3
+      if: steps.install-aws.outcome == 'success'
       run: |
         pwd
         ls -l /home/runner/work/nexial-docker/nexial-docker/output
