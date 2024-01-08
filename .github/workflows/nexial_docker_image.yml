@@ -17,5 +17,5 @@ jobs:
         docker build -t nexial . 
     - name: create container for nexial
       run: |
-         docker run -it --name nex nexial
+         docker run -t --name nex nexial
 
