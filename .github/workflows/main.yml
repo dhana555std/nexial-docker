@@ -10,10 +10,16 @@ on:
         - info
         - warning
         - debug
+        
       tags:
         description: 'Test scenario tags'
         required: false
         type: boolean
+
+      command:
+        description: "Invocation command"
+        required: true
+        type: string
 
 
 jobs:
