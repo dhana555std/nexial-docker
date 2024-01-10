@@ -44,14 +44,14 @@ jobs:
 
       - name: Install aws-cli
         id: install-aws
-        if: ${{ ! cancelled() }}
+        if: ${{ ! cancelled() && exit_code = 1}}
         run: |
           curl "https://awscli.amazonaws.com/awscli-exe-linux-x86_64.zip" -o "awscliv2.zip"
           unzip awscliv2.zip
           sudo ./aws/install --update
 
       - name: Upload Nexial Output to S3
-        if: ${{ success() }}
+        if: ${{ success() }} #if previous step is executed
         run: |
           pwd
           ls -l ./output
