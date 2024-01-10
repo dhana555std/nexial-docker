@@ -1,1 +1,62 @@
+name: Nexial Automation tests running on Container with Volumes
 
+on:
+  push:
+    branches: [ "main" ]
+
+jobs:
+
+  build:
+
+    runs-on: ubuntu-latest
+
+    steps:
+      - uses: actions/checkout@v4
+
+      - name: Build the Docker image
+        run: |
+          docker build -t nexial .
+
+      - name: Run nexial scripts
+        run: |
+          docker run -v "$(pwd)/output:/home/projects/tests/output" --name nex nexial
+
+      - name: Get results of Nexial
+        if: ${{ ! cancelled() }}
+        run: |
+          ls -lrta
+          cd output
+          if [ -d "$(ls -d */ | head -n 1)" ]; then
+            cd "$(ls -d */ | head -n 1)"
+            cat ./execution-detail.json
+            failCount=$(jq -r '.failCount' execution-detail.json)
+            echo "failCount is $failCount."
+
+            if [ "$failCount" -gt 0 ]; then
+              echo "Automation tests failed."
+              exit 1
+            else
+              echo "Automation tests passed."
+            fi
+          else
+            echo "Output folder not found, skipping upload."
+          fi
+
+      - name: Install aws-cli
+        id: install-aws
+        if: ${{ ! cancelled() && steps.Get_results_of_Nxial.outputs.exit_code != 1 }}
+        run: |
+          curl "https://awscli.amazonaws.com/awscli-exe-linux-x86_64.zip" -o "awscliv2.zip"
+          unzip awscliv2.zip
+          sudo ./aws/install --update
+
+      - name: Upload Nexial Output to S3
+        if: ${{ ! cancelled() && steps.Get_results_of_Nxial.outputs.exit_code != 1 }}
+        run: |
+          pwd
+          ls -l ./output
+          aws s3 cp --recursive ./output s3://testbucket-for-triggering/
+        env:
+          AWS_ACCESS_KEY_ID: ${{secrets.ACCESS_KEY_ID}}
+          AWS_SECRET_ACCESS_KEY: ${{secrets.AWS_SECRET_ACCESS_KEY}}
+          AWS_DEFAULT_REGION: 'ap-south-1'
