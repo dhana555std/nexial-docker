@@ -52,7 +52,7 @@ jobs:
           sudo ./aws/install --update
 
       - name: Upload Nexial Output to S3
-        if: ${{ success() }} #if previous step is executed
+        if: always() #if previous step is executed
         run: |
           pwd
           ls -l ./output
