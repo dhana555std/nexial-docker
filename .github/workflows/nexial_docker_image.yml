@@ -3,6 +3,8 @@ name: Nexial Automation tests running on Container with Volumes
 on:
   push:
     branches: [ "main" ]
+    paths-ignore:
+      - '.github/workflows/**'
 
 jobs:
 
