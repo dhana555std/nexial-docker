@@ -15,12 +15,27 @@ on:
         description: 'Version Number'
         required: true
         type: integer
-     
-jobs:
-  your_job_name:
-    runs-on: ubuntu-latest
-    steps:
-      - name: Checkout code
-        uses: actions/checkout@v2
 
-    
+jobs:
+  run-curl-commands:
+    runs-on: ubuntu-latest
+
+    steps:
+    - name: Checkout code
+      uses: actions/checkout@v2
+
+    - name: Set Environment Variable
+      run: |
+        echo "export environment=${{ github.event.inputs.environment }}" >> $GITHUB_ENV
+        echo "export version_number=${{ github.event.inputs.version_number }}" >> $GITHUB_ENV
+
+    - name: Run Script based on Version
+      run: |
+        if [ "${{ github.event.inputs.version_number }}" -eq 1 ]; then
+          bash data1/v1.sh
+        elif [ "${{ github.event.inputs.version_number }}" -eq 2 ]; then
+          bash data2/v2.sh
+        else
+          echo "Unsupported version number specified."
+          exit 1
+        fi
