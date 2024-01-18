@@ -27,8 +27,7 @@ jobs:
     - name: Set Environment Variables
       run: |
         echo "export environment=${{ github.event.inputs.environment }}" >> $GITHUB_ENV
-        echo "export version_number=$((github.event.inputs.version_number))" >> $GITHUB_ENV
-
+        echo "export version_number=${{ github.event.inputs.version_number }}" >> $GITHUB_ENV
     - name: Run Script based on Version
       run: |
         source $HOME/.bashrc
