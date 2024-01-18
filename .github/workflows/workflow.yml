@@ -15,6 +15,7 @@ on:
         description: 'Version Number'
         required: true
         type: integer
+        default: '1'
 
 jobs:
   run-curl-commands:
