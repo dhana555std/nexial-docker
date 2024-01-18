@@ -27,6 +27,9 @@ jobs:
 
     - name: Set Environment Variables
       run: |
+        STEP_VAR="step_value"
+        echo "Step variable is $STEP_VAR"
+        
         export environment=${{ github.event.inputs.environment }}
         export version_number=${{ github.event.inputs.version_number }}
         echo "Environment: $environment"
