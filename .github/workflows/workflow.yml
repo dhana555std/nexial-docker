@@ -32,8 +32,8 @@ jobs:
 
     - name: Debug Environment Variables
       run: |
-        echo "Environment: ${{environment}}"
-        echo "Version Number: ${{version_number}}"
+        echo "Environment: $environment"
+        echo "Version Number: $version_number"
 
     - name: Run Script based on Version
       run: |
