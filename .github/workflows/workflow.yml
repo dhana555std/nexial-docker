@@ -38,13 +38,13 @@ jobs:
 
     - name: Run Script based on Version
       run: |
-        version_folder="data${version_number}"
+        version_folder="data$version_number"
         if [[ ! $version_number =~ ^[0-9]+$ ]]; then
           echo "Invalid version number specified."
           exit 1
         fi
         if [ -d "$version_folder" ]; then
-          bash "$version_folder/v${version_number}.sh"
+          bash "$version_folder/v$version_number.sh"
         else
           echo "Folder for version number $version_number not found."
           exit 1
