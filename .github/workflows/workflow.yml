@@ -11,7 +11,7 @@ on:
           - DEV
           - QA
           - PROD
-      versionnumber:
+      version_number:
         description: 'Version Number'
         required: true
         type: integer
@@ -28,7 +28,7 @@ jobs:
     - name: Set Environment Variables
       run: |
         export environment=${{ github.event.inputs.environment }}
-        export version_number=${{ github.event.inputs.versionnumber }}
+        export version_number=${{ github.event.inputs.version_number }}
 
     - name: Debug Environment Variables
       run: |
