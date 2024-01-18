@@ -1,0 +1,26 @@
+name: YourWorkflowName
+
+on:
+  workflow_dispatch:
+    inputs:
+      environment:
+        description: 'Environment'
+        required: true
+        type: choice
+        options:
+          - DEV
+          - QA
+          - PROD
+      versionNumber:
+        description: 'Version Number'
+        required: true
+        type: integer
+     
+jobs:
+  your_job_name:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v2
+
+    
