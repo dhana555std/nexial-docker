@@ -26,11 +26,17 @@ jobs:
 
     - name: Set Environment Variables
       run: |
-        echo "export environment=${{ github.event.inputs.environment }}" >> $GITHUB_ENV
-        echo "export version_number=${{ github.event.inputs.version_number }}" >> $GITHUB_ENV
+        echo "export environment=${{ github.event.inputs.environment }}" >> $HOME/.bashrc
+        echo "export version_number=${{ github.event.inputs.version_number }}" >> $HOME/.bashrc
+        source $HOME/.bashrc
+
+    - name: Debug Environment Variables
+      run: |
+        echo "Environment: $environment"
+        echo "Version Number: $version_number"
+
     - name: Run Script based on Version
       run: |
-        source $HOME/.bashrc
         version_folder="data${version_number}"
         if [[ ! $version_number =~ ^[0-9]+$ ]]; then
           echo "Invalid version number specified."
