@@ -1,4 +1,4 @@
-name: YourWorkflowName
+name: roompot-workflow
 
 on:
   workflow_dispatch:
