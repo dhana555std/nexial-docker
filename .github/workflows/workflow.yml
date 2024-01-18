@@ -26,16 +26,13 @@ jobs:
       uses: actions/checkout@v4
 
     - name: Set Environment Variables
-      run: |
-        STEP_VAR="step_value"
-        echo "Step variable is $STEP_VAR"
-        
+      run: |      
         export environment=${{ github.event.inputs.environment }}
         export version_number=${{ github.event.inputs.version_number }}
         echo "Environment: $environment"
         echo "Version Number: $version_number"
 
-        url = "https://api.boomi.com/mdm/api/rest/v1/trainingharikasundari-DADFVL/clouds/3229df3b-0682-44c4-b900-57b8a249c17b/repositories/property${environment}/create"
+        url="https://api.boomi.com/mdm/api/rest/v1/trainingharikasundari-DADFVL/clouds/3229df3b-0682-44c4-b900-57b8a249c17b/repositories/property${environment}/create"
         echo "url is $url."
         # curl --location --request POST 'https://api.boomi.com/mdm/api/rest/v1/trainingharikasundari-DADFVL/clouds/3229df3b-0682-44c4-b900-57b8a249c17b/repositories/property${environment}/create' \
              # --header 'Authorization: Basic c3VuZGFyaS5oYXJpa2FAYWNjaW9ubGFicy5jb206Qm9vbWlQbGF0Zm9ybUAzMzM=' \
