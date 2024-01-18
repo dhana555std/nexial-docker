@@ -11,7 +11,7 @@ on:
           - DEV
           - QA
           - PROD
-      versionNumber:
+      version_number:
         description: 'Version Number'
         required: true
         type: integer
