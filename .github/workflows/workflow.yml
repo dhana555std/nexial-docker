@@ -23,28 +23,13 @@ jobs:
 
     steps:
     - name: Checkout code
-      uses: actions/checkout@v2
+      uses: actions/checkout@v4
 
     - name: Set Environment Variables
       run: |
         export environment=${{ github.event.inputs.environment }}
         export version_number=${{ github.event.inputs.version_number }}
-
-    - name: Debug Environment Variables
-      run: |
         echo "Environment: $environment"
         echo "Version Number: $version_number"
 
-    - name: Run Script based on Version
-      run: |
-        version_folder="data${version_number}"
-        if [[ ! $version_number =~ ^[0-9]+$ ]]; then
-          echo "Invalid version number specified."
-          exit 1
-        fi
-        if [ -d "$version_folder" ]; then
-          bash "$version_folder/v${version_number}.sh"
-        else
-          echo "Folder for version number $version_number not found."
-          exit 1
-        fi
+    
