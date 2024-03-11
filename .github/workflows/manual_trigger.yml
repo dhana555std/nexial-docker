@@ -1,0 +1,21 @@
+name: Manual trigger
+
+on:
+  workflow_dispatch:
+    inputs:
+      name:
+        description: "Who to greet"
+        default: "World"
+      json:
+        description: pass json object
+        type: string
+        default: ''
+        required: true
+
+jobs:
+    hello:
+        runs-on: ubuntu-latest
+
+        steps:
+        - name: Hello Step
+          run: echo "Hello ${{ github.event.inputs.json }}"
