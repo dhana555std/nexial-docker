@@ -2,6 +2,10 @@ name: Nexial Automation tests running on Container with Volumes
 
 on:
   workflow_dispatch:
+   inputs:
+      name:
+        description: "nexial execution"
+        default: "true"
 
 jobs:
 
